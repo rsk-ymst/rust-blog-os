@@ -4,6 +4,11 @@
 use core::panic::PanicInfo;
 mod vga_buffer;
 
+// 実行順番
+// 1. cargo build
+// 2. cargo bootimage
+// 3. qemu-system-x86_64 -drive format=raw,file=target/x86_64-blog_os/debug/bootimage-blog_os.bin
+
 // エントリポイントを上書きしている
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
@@ -16,6 +21,7 @@ pub extern "C" fn _start() -> ! {
     //     }
     // }
     vga_buffer::print_something();
+    vga_buffer::print_something_v2();
 
 
     loop {}
