@@ -2,6 +2,7 @@
 #![no_main]
 
 use core::panic::PanicInfo;
+use crate::vga_buffer::WRITER;
 mod vga_buffer;
 
 // 実行順番
@@ -20,14 +21,16 @@ pub extern "C" fn _start() -> ! {
     //         *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
     //     }
     // }
-    vga_buffer::print_something();
-    vga_buffer::print_something_v2();
+    // vga_buffer::print_something();
+    // vga_buffer::print_something_v2();
 
+    panic!("Some panic message");
 
     loop {}
 }
 
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
